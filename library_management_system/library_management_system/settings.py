@@ -76,14 +76,15 @@ WSGI_APPLICATION = 'library_management_system.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-'default' :{
-'ENGINE' : 'django.db.backends.mysql',
-'NAME' : 'spdatabase' , # Name of the database*
-'USER': 'root', #user name for the database
-'PASSWORD' : 'bhumit075', # password
-'HOST' : 'localhost', # IP address of the database
-'PORT' : '3306', # port number of database server
-}
+    'default' :{
+    'ENGINE' : 'django.db.backends.mysql',
+    'NAME' : 'spdatabase' , # Name of the database*
+    'USER': 'root', #user name for the database
+    #'PASSWORD' : 'bhumit075', # password
+    'PASSWORD' : '', # password
+    'HOST' : 'localhost', # IP address of the database
+    'PORT' : '3306', # port number of database server
+    }
 }
 
 
