@@ -39,8 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'viewdemoapp',
-    'dbtestapp.apps.DbtestappConfig',
+    'loginmodule.apps.LoginmoduleConfig',
 ]
 
 MIDDLEWARE = [
