@@ -16,6 +16,7 @@
                 padding: 40px;  
                 background: #70918b;  
                 border-radius: 15px ;  
+                
              }
              #username,#fname,#lname,#password,#repassword,#e-mail
             {  
@@ -33,7 +34,7 @@
             h2
             {  
                 text-align: center; 
-                color: #277582;  
+                color: #135561;  
             }
             #submit{  
                 width: 300px;  
@@ -46,11 +47,12 @@
         </style>
     </head>
     <body>
-        {% if error%}
-        <h4>{{error}}</h4>
-        {%endif%}
+        {% for m in messages%}
+            <h4>{{m}}</h4>
+         {%endfor%}
         <div class="registrationbox">
         <form action="" method = "POST" id="registrationbox">
+            {% csrf_token %}
             <h2>library-management-syatem</h2>
             <h2>Registration Page</h2>
             <label>Enter Username:</label> 
