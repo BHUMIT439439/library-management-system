@@ -1,0 +1,27 @@
+{% extends "loginmodule/base.html" %}
+
+{% block title %}
+    Welcome
+{% endblock title %}
+
+{% block style %}
+
+<style type="text/css">
+    h2
+    {  
+        text-align: center; 
+        color: #135561;  
+    }
+</style> 
+
+{% endblock style %}
+
+{% block body %}
+
+    {% for message in messages %}
+        <h4>{{ message }}</h4>
+    {% endfor %}
+
+    <h2> <br>Logged in successful<br><br> welcome to library managemenent system....</h2>
+
+{% endblock body %}

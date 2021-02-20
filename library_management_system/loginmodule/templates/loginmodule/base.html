@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		{% block title %}
+			<!-- Title -->
+		{% endblock title %}
+	</title>
+	
+	{% block style %}
+		/*Style*/
+	{% endblock style %}
+
+	<style>
+		body {
+			font-family: Arial;
+		}
+	</style>
+</head>
+<body>
+	{% block body %}
+		<!-- Body -->
+	{% endblock body %}
+</body>
+</html>
