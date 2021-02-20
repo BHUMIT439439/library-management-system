@@ -4,7 +4,7 @@ from django.contrib.auth.models import User,auth
 
 
 def login(request):
-    return render(request,'login.html')
+    return render(request,'loginmodule/login.html')
 
 
 def register(request):
@@ -22,10 +22,10 @@ def register(request):
                 #if both are same then forward procced
                 if User.objects.filter(username = username).exists():
                     messages.info(request,'username already taken')
-                    return render(request,'register.html')
+                    return render(request,'loginmodule/register.html')
                 elif User.objects.filter(email = email).exists():
                     messages.info(request,'email already taken')
-                    return render(request,'register.html')
+                    return render(request,'loginmodule/register.html')
                 else :
                     user = User.objects.create_user(username = username , password = password1,
                                                         first_name = first_name , last_name = last_name,
@@ -40,13 +40,13 @@ def register(request):
         else:
             messages.info(request,"please enter the data")
             messages.info(request,"all fields are must required")
-            return render(request,'register.html')
+            return render(request,'loginmodule/register.html')
 
     else:
-         return render(request,'register.html')
+         return render(request,'loginmodule/register.html')
 
 def home(request):
-    return render(request,'home.html')
+    return render(request,'loginmodule/home.html')
 
 def welcome(request):
     if request.method == "POST":
@@ -60,8 +60,8 @@ def welcome(request):
             messages.info(request,"Invalid username or password")
             return redirect('/login')
         else:
-            return render(request,'welcome.html')
+            return render(request,'loginmodule/welcome.html')
     else:
-        return render(request,'login.html')
+        return render(request,'loginmodule/login.html')
     
     
