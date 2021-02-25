@@ -4,9 +4,10 @@ from django.contrib.auth.models import User,auth
 
 
 def login(request):
-    return render(request,'loginmodule/login.html')
+    return render(request,'login.html')
 
-
+def failure(request):
+    return render(request,'failure.html')
 def register(request):
     if request.method == "POST" :
         username=request.POST['username']
@@ -22,10 +23,10 @@ def register(request):
                 #if both are same then forward procced
                 if User.objects.filter(username = username).exists():
                     messages.info(request,'username already taken')
-                    return render(request,'loginmodule/register.html')
+                    return render(request,'register.html')
                 elif User.objects.filter(email = email).exists():
                     messages.info(request,'email already taken')
-                    return render(request,'loginmodule/register.html')
+                    return render(request,'register.html')
                 else :
                     user = User.objects.create_user(username = username , password = password1,
                                                         first_name = first_name , last_name = last_name,
@@ -40,13 +41,13 @@ def register(request):
         else:
             messages.info(request,"please enter the data")
             messages.info(request,"all fields are must required")
-            return render(request,'loginmodule/register.html')
+            return render(request,'register.html')
 
     else:
-         return render(request,'loginmodule/register.html')
+         return render(request,'register.html')
 
 def home(request):
-    return render(request,'loginmodule/home.html')
+    return render(request,'home.html')
 
 def welcome(request):
     if request.method == "POST":
@@ -60,8 +61,8 @@ def welcome(request):
             messages.info(request,"Invalid username or password")
             return redirect('/login')
         else:
-            return render(request,'loginmodule/welcome.html')
+            return render(request,'welcome.html')
     else:
-        return render(request,'loginmodule/login.html')
+        return render(request,'login.html')
     
     
