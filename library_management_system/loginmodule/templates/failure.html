@@ -1,71 +1,28 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Home</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <style>
-	body{
-		margin: 0;
-		padding: 0;
-		background-image: url('{% static "book4.jpg"%}');
-		background-repeat: no-repeat;
-		background-size: cover;
-		 }
-	.header
-	{
-		padding: 10px;
-		text-align: center;
-		background:transparent;
-		color: rgb(6, 7, 7);
-		font-size: 28px;
-	}
-  ul
-	{
-		margin: 0;
-		padding-left: 270px;
-		list-style: none;
-		height: 36px;
-		background: transparent;  
-		font-family: Arial, Helvetica, sans-serif;
-		font-size: 18px;
-	}
+<html>
+    <head>
+        <title>library management system</title>
+        <style>
+            body{
+				margin: 0;
+				padding: 0;
+				background-image: url('{% static "book4.jpg"%}');
+				background-repeat: no-repeat;
+				background-size: cover;
+				
+ 				}
+			a {
+				background-color: rgb(36, 27, 27);
+				color: white;
+				padding: 1em 1.5em;
+				text-decoration: none;
+				text-transform: uppercase;
+				}
 
-	li
-	{
-        padding-top: 0px;
-		float:left;
-		padding-right: 20px;
-		     
-	}
-
-    div.a
-    {
-        text-align: right;
-        padding-right: 190px;
-    }
-    a
-    {
-        color:rgb(0, 0, 0);
-    }
-</style>
-  </head>
-<body>
-
-  <div class="header">
-    <h1>Library Management System</h1>
-    <p>"One Best Book is equal to Hundred Good Friends, One Good Friend is equal to a Library" </p> 
-	<div class="a">- Dr. A.P.J. Abdul Kalam</div>
-  </div>
-  
-  <ul>
-	  <li><a href="register">Register</a></li>
-	  <li><a href="login">Login</a></li>
-  </ul>
-
-</div>
-
-</body>
+        </style>
+    </head>
+    <body>
+        <a href="">Book manage</a>
+        <a href="">Reader manage</a>
+    </body>
 </html>
