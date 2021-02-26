@@ -1,28 +1,19 @@
-{% extends "base.html" %}
-
-{% block title %}
-    Welcome
-{% endblock title %}
-
-{% block style %}
-
-<style type="text/css">
-    h2
-    {  
-        text-align: center; 
-        color: #135561;  
-    }
-</style> 
-
-{% endblock style %}
-
-{% block body %}
-
-    {% for message in messages %}
-        <h4>{{ message }}</h4>
-    {% endfor %}
-
-    <h2> <br>Logged in successful<br><br> welcome to library managemenent system....</h2>
-    <a href="/home">logout</a> 
-
-{% endblock body %}
+{% load static %}
+<html>
+    <head>
+        <title>library management system</title>
+        <style>
+            body{
+				margin: 0;
+				padding: 0;
+				background-image: url('{% static "book4.jpg"%}');
+				background-repeat: no-repeat;
+				background-size: cover;
+ 				}
+        </style>
+    </head>
+    <body>
+        <a href="">Book manage</a>
+        <a href="">Reader manage</a>
+    </body>
+</html>

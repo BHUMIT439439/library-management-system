@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
-
+from .models import Reader
 
 def login(request):
     return render(request,'login.html')
@@ -21,14 +21,14 @@ def register(request):
             #check password and repassword are same or not
             if password1 == password2:
                 #if both are same then forward procced
-                if User.objects.filter(username = username).exists():
+                if Reader.objects.filter(username = username).exists():
                     messages.info(request,'username already taken')
                     return render(request,'register.html')
-                elif User.objects.filter(email = email).exists():
+                elif Reader.objects.filter(email = email).exists():
                     messages.info(request,'email already taken')
                     return render(request,'register.html')
                 else :
-                    user = User.objects.create_user(username = username , password = password1,
+                    user = Reader(username = username , password = password1,
                                                         first_name = first_name , last_name = last_name,
                                                         email = email)
                     user.save()
@@ -54,7 +54,7 @@ def welcome(request):
         username=request.POST['username']
         password=request.POST['userpassword']
         #check user is register or not
-        user = auth.authenticate(username=username , password=password)
+        user = Reader.check(username=username , password=password)
         #user is  register then value of user is not None
         if user is None:
             #login access to user
