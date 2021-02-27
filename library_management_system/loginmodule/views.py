@@ -54,14 +54,13 @@ def welcome(request):
         username=request.POST['username']
         password=request.POST['userpassword']
         #check user is register or not
-        user = Reader.check(username=username , password=password)
+        if Reader.objects.filter(username = username).exists() and Reader.objects.filter(password = password).exists():
+             return render(request,'welcome.html')
         #user is  register then value of user is not None
-        if user is None:
+        else:
             #login access to user
             messages.info(request,"Invalid username or password")
             return redirect('/login')
-        else:
-            return render(request,'welcome.html')
     else:
         return render(request,'login.html')
     
