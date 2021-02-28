@@ -1,0 +1,57 @@
+{% extends "loginmodule/base.html" %}
+
+{% block style %}
+<style type="text/css">
+	.register {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+</style>
+{% endblock style %}
+
+{% block title %}
+	Register
+{% endblock title %}
+
+{% block body %}
+<div class="register text-white"> 
+ 		<h1>Registration here</h1>
+		<form class="w-25">
+		  {% csrf_token %}
+		  <div class="mb-3">
+		    <label class="form-label">Username</label>
+		    <input type="text" class="form-control" name="username">
+		  </div>
+
+		  <div class="mb-3">
+		    <label class="form-label">First name</label>
+		    <input type="text" class="form-control" name="fname">
+		  </div>
+
+		  <div class="mb-3">
+		    <label class="form-label">Last name</label>
+		    <input type="text" class="form-control" name="lname">
+		  </div>
+
+		  <div class="mb-3">
+		    <label class="form-label">Email address</label>
+		    <input type="email" name="email" class="form-control">
+		    <div class="form-text">We'll never share your email with anyone else.</div>
+		  </div>
+
+		  <div class="mb-3">
+		    <label class="form-label">Password</label>
+		    <input type="password" class="form-control" name="password">
+		  </div>
+
+		  <div class="mb-3">
+		    <label class="form-label">Re-enter 	Password</label>
+		    <input type="password" class="form-control" name="repassword">
+		  </div>
+
+		  <button type="submit" name="submit" class="btn btn-primary" value="Register">Submit</button>
+		</form>
+</div>
+{% endblock body %}

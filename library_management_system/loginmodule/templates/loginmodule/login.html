@@ -1,0 +1,83 @@
+{% extends "loginmodule/base.html" %}
+{% load static %}
+
+{% block title %}
+	Login page
+{% endblock title %}
+
+{% block style %}
+<style>
+	.login-box{
+		width: 320px;
+		height: 420px;
+		top: 50%;
+		left: 20%;
+		position: absolute;
+		transform: translate(-50%,-50%);
+		box-sizing: border-box;
+    }
+	h1{
+		margin: 0;
+		padding: 0 0 40px;
+		text-align: center;
+		font-size: 38px;
+	}
+	.login-box p{
+		margin: 0;
+		padding: 0;
+		font-weight: bold;
+		font-size: 22px;
+	}
+	.login-box input{
+		width: 100%;
+		margin-bottom: 20px;
+	}
+	.login-box input[type="text"],input[type="password"]
+	{
+		border: none;
+		border-bottom: 1px solid rgb(0, 0, 0);
+		background: transparent;
+		outline: none;
+		height: 40px;
+		font-size: 18px ;
+
+	}
+	.login-box input[type="submit"]
+	{
+		border: none;
+		outline: none;
+		height: 40px;
+		font-size: 18px;
+		border-radius: 20px;
+		background-color: rgb(62, 47, 63);
+	}
+	.login-box input[type="submit"]:hover
+	{
+		cursor: pointer;
+        box-shadow: 0 0 10px 0 rgb(62, 47, 63) inset, 0 0 10px 4px rgb(144, 133, 129);
+	}
+	::placeholder
+	{
+		color: rgb(21, 36, 68);
+	}
+</style>
+{% endblock style %}
+
+{% block body %}
+<div class="login-box">
+	<form action='/welcome/' method="POST"  id="loginbox">
+		{% csrf_token %}
+        {% for m in messages%}
+            <h4>{{m}}</h4>
+        {%endfor%}
+		<h1>login here</h1>
+		<p>User name</p>
+		<input type="text" name="username" id="username" placeholder="Enter name here" />
+		<br><br>
+		<p>Password</p>
+		<input type="password" id="userpassword" name="userpassword" placeholder="Enter password here"/>
+		<br><br><br>
+		<input type="submit" id="login" value="Login" name="login"/>
+	</form>
+</div>
+{% endblock body %}
