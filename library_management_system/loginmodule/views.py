@@ -4,7 +4,7 @@ from django.contrib.auth.models import User,auth
 from .models import Reader
 
 def login(request):
-    return render(request,'login.html')
+    return render(request,'loginmodule/login.html')
 
 def failure(request):
     return render(request,'failure.html')
@@ -23,14 +23,14 @@ def register(request):
                 #if both are same then forward procced
                 if Reader.objects.filter(username = username).exists():
                     messages.info(request,'username already taken')
-                    return render(request,'register.html')
+                    return render(request,'loginmodule/register.html')
                 elif Reader.objects.filter(email = email).exists():
                     messages.info(request,'email already taken')
-                    return render(request,'register.html')
+                    return render(request,'loginmodule/register.html')
                 else :
                     user = Reader(username = username , password = password1,
-                                                        first_name = first_name , last_name = last_name,
-                                                        email = email)
+                                  first_name = first_name , last_name = last_name,
+                                  email = email)
                     user.save()
                     return redirect('/login')
                     
@@ -44,10 +44,10 @@ def register(request):
             return render(request,'register.html')
 
     else:
-         return render(request,'register.html')
+         return render(request,'loginmodule/register.html')
 
 def home(request):
-    return render(request,'home.html')
+    return render(request,'loginmodule/home.html')
 
 def welcome(request):
     if request.method == "POST":
@@ -55,13 +55,13 @@ def welcome(request):
         password=request.POST['userpassword']
         #check user is register or not
         if Reader.objects.filter(username = username).exists() and Reader.objects.filter(password = password).exists():
-             return render(request,'welcome.html')
+             return render(request,'loginmodule/welcome.html')
         #user is  register then value of user is not None
         else:
             #login access to user
             messages.info(request,"Invalid username or password")
             return redirect('/login')
     else:
-        return render(request,'login.html')
+        return render(request,'loginmodule/login.html')
     
     

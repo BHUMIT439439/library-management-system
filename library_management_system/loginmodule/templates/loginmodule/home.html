@@ -1,0 +1,79 @@
+{% extends "loginmodule/base.html" %}
+{% load static %}
+
+{% block title %}
+    Home
+{% endblock title %}
+
+{% block style %}
+<style>
+    .header
+    {
+        padding: 10px;
+        text-align: center;
+        background:transparent;
+        color: rgb(6, 7, 7);
+        font-size: 28px;
+    }
+
+    ul
+    {
+        margin: 0;
+        padding-left: 270px;
+        list-style: none;
+        height: 36px;
+        background: transparent;  
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 18px;
+    }
+
+    li
+    {
+        padding-top: 0px;
+        float:left;
+        padding-right: 20px;
+             
+    }
+
+    div.a
+    {
+        text-align: right;
+        padding-right: 262px;
+        font-style: italic;
+        font-size: 25px;
+        font-weight: 700;
+    }
+    
+    a
+    {
+        color:rgb(0, 0, 0);
+    }
+    </style>
+{% endblock style %}
+
+
+{% block body %}
+    <div class="header">
+        <h1>
+            Library Management System
+        </h1>
+        <p>
+            "One Best Book is equal to Hundred Good Friends, One Good Friend is equal to a Library"
+        </p>
+        <div class="a">
+            - Dr. A.P.J. Abdul Kalam
+        </div>
+    </div>
+    <ul>
+        <li>
+            <a href="register">
+                Register
+            </a>
+        </li>
+        <li>
+            <a href="login">
+                Login
+            </a>
+        </li>
+    </ul>
+{% endblock body %}
