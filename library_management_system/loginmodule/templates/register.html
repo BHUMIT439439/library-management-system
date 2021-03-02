@@ -1,3 +1,4 @@
+{% include 'base.html' %}
 {% load static %}
 <html>
 	<head>
@@ -5,15 +6,7 @@
 		<meta charset="utf-8">
 		
 		<style>
-			body{
-				margin: 0;
-				padding: 0;
-				background-image: url('{% static "book4.jpg"%}');
-				background-repeat: no-repeat;
-				background-size: cover;
- 				
-			}
-			.login-box{
+			.register-box{
 				width: 320px;
 				height: 420px;
 				top: 30%;
@@ -29,17 +22,17 @@
 				text-align: center;
 				font-size: 38px;
 			}
-			.login-box p{
+			.register-box p{
 				margin: 0;
 				padding: 0;
 				font-weight: bold;
 				font-size: 22px;
 			}
-			.login-box input{
+			.register-box input{
 				width: 100%;
 				margin-bottom: 18px;
 			}
-			.login-box input[type="text"],input[type="password"],input[type="email"]
+			.register-box input[type="text"],input[type="password"],input[type="email"]
 			{
 				border: none;
 				border-bottom: 1px solid rgb(0, 0, 0);
@@ -49,7 +42,7 @@
 				font-size: 15px ;
 
 			}
-			.login-box input[type="submit"]
+			.register-box input[type="submit"]
 			{
 				border: none;
 				outline: none;
@@ -59,7 +52,7 @@
 				background-color: rgb(62, 47, 63);
 				
 			}
-			.login-box input[type="submit"]:hover
+			.register-box input[type="submit"]:hover
 			{
 				cursor: pointer;
 				box-shadow: 0 0 10px 0 rgb(62, 47, 63) inset, 0 0 10px 4px rgb(144, 133, 129);
@@ -72,7 +65,7 @@
 	</head>
 	<body>
 		
-		<div class="login-box">
+		<div class="register-box">
 			<form action="" method="POST"  id="loginbox">
 				{% csrf_token %}
 		<h1>Registration here</h1>

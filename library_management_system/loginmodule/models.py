@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Reader(models.Model):
     username = models.CharField(primary_key=True,max_length=20)

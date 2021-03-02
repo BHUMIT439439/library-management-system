@@ -2,11 +2,11 @@
 {% load static %}
 <html>
 	<head>
-		<title>Login page</title>
+		<title>add book page</title>
 		<meta charset="utf-8">
 		
 		<style>
-			.login-box{
+			.book-box{
 				width: 320px;
 				height: 420px;
 				top: 50%;
@@ -21,17 +21,17 @@
 				text-align: center;
 				font-size: 38px;
 			}
-			.login-box p{
+			.book-box p{
 				margin: 0;
 				padding: 0;
 				font-weight: bold;
 				font-size: 22px;
 			}
-			.login-box input{
+			.book-box input{
 				width: 100%;
 				margin-bottom: 20px;
 			}
-			.login-box input[type="text"],input[type="password"]
+			.book-box input[type="text"]
 			{
 				border: none;
 				border-bottom: 1px solid rgb(0, 0, 0);
@@ -41,7 +41,7 @@
 				font-size: 18px ;
 
 			}
-			.login-box input[type="submit"]
+			.book-box input[type="submit"]
 			{
 				border: none;
 				outline: none;
@@ -50,7 +50,7 @@
 				border-radius: 20px;
 				background-color: rgb(62, 47, 63);
 			}
-			.login-box input[type="submit"]:hover
+			.book-box input[type="submit"]:hover
 			{
 				cursor: pointer;
                 box-shadow: 0 0 10px 0 rgb(62, 47, 63) inset, 0 0 10px 4px rgb(144, 133, 129);
@@ -63,20 +63,23 @@
 	</head>
 	<body>
 		
-		<div class="login-box">
-			<form action='/welcome/' method="POST"  id="loginbox">
+		<div class="book-box">
+			<form action=" " method="POST">
 				{% csrf_token %}
                 {% for m in messages%}
                     <h4>{{m}}</h4>
                 {%endfor%}
-				<h1>login here</h1>
-				<p>User name</p>
-				<input type="text" name="username" id="username" placeholder="Enter name here" />
+				<h1>Add Book</h1>
+				<p>Book name</p>
+				<input type="text" name="bname" id="bname" placeholder="Enter book name here" />
 				<br><br>
-				<p>Password</p>
-				<input type="password" id="userpassword" name="userpassword" placeholder="Enter password here"/>
+				<p>Auther name</p>
+				<input type="text" id="aname" name="aname" placeholder="Enter auther name here"/>
+				<br><br>
+                <p>Publish year</p>
+				<input type="text" id="pyear" name="pyear" placeholder="Enter publish year here"/>
 				<br><br><br>
-				<input type="submit" id="login" value="Login" name="login"/>
+				<input type="submit" id="addbook" value="add book" name="addbook"/>
 			</form>
 		</div>
 	</body>
