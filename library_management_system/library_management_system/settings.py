@@ -82,7 +82,8 @@ DATABASES = {
     'ENGINE' : 'django.db.backends.mysql',
     'NAME' : 'spdatabase' , # Name of the database*
     'USER': 'root', #user name for the database
-    'PASSWORD' : 'bhumit075', # password
+    'PASSWORD' : '', # visrut password
+     # 'PASSWORD' : '', # bhumit password
     'HOST' : 'localhost', # IP address of the database
     'PORT' : '3306', # port number of database server
     }
