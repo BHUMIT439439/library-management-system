@@ -1,20 +1,24 @@
-{% include 'base.html' %}
+{% extends 'loginmodule/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Home</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <style>
-	body{
-		margin: 0;
-		padding: 0;
-		background-image: url('{% static "book4.jpg"%}');
-		background-repeat: no-repeat;
-		background-size: cover;
-		 }
+
+{% block body %}
+  <div class="header">
+    <h1>Library Management System</h1>
+    <p>"One Best Book is equal to Hundred Good Friends, One Good Friend is equal to a Library" </p> 
+	<div class="a">- Dr. A.P.J. Abdul Kalam</div>
+  </div>
+
+  <header>
+	<ul>
+		<li><a href="register">Register</a></li>
+		<li><a href="login">Login</a></li>
+	</ul>
+</header>
+{% endblock body %}
+
+
+{% block style %}
+<style>
 	.header
 	{
 		padding: 10px;
@@ -23,7 +27,7 @@
 		color: rgb(6, 7, 7);
 		font-size: 28px;
 	}
-  ul
+    ul
 	{
 		margin: 0;
 		padding-left: 270px;
@@ -81,23 +85,4 @@
 		box-shadow: 0 0 10px 0 rgb(62, 47, 63) inset, 0 0 10px 2px rgb(100, 100, 100);
 	}
 </style>
-  </head>
-<body>
-
-  <div class="header">
-    <h1>Library Management System</h1>
-    <p>"One Best Book is equal to Hundred Good Friends, One Good Friend is equal to a Library" </p> 
-	<div class="a">- Dr. A.P.J. Abdul Kalam</div>
-  </div>
-
-  <header>
-	<ul>
-		<li><a href="register">Register</a></li>
-		<li><a href="login">Login</a></li>
-	</ul>
-</header>
-
-</div>
-
-</body>
-</html>
+{% endblock style %}
