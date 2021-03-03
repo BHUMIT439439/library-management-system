@@ -1,83 +1,80 @@
 {% include 'base.html' %}
 {% load static %}
-<html>
-	<head>
-		<title>issue book page</title>
-		<meta charset="utf-8">
+<title>issue book page</title>
 		
-		<style>
-			.book-box{
-				width: 320px;
-				height: 420px;
-				top: 50%;
-				left: 20%;
-				position: absolute;
-				transform: translate(-50%,-50%);
-				box-sizing: border-box;
-            }
-			h1{
-				margin: 0;
-				padding: 0 0 40px;
-				text-align: center;
-				font-size: 38px;
-			}
-			.book-box p{
-				margin: 0;
-				padding: 0;
-				font-weight: bold;
-				font-size: 22px;
-			}
-			.book-box input{
-				width: 100%;
-				margin-bottom: 20px;
-			}
-			.book-box input[type="text"]
-			{
-				border: none;
-				border-bottom: 1px solid rgb(0, 0, 0);
-				background: transparent;
-				outline: none;
-				height: 40px;
-				font-size: 18px ;
+{% block body %}
+<div class="book-box">
+	<form action=" " method="POST">
+		{% csrf_token %}
+        {% for m in messages%}
+            <h4>{{m}}</h4>
+        {%endfor%}
+		<h1>Issue Book</h1>
+        <p>Book id</p>
+		<input type="text" id="aname" name="aname" placeholder="Enter book id here"/>
+		<br><br>
+		<p>Book name</p>
+		<input type="text" name="bname" id="bname" placeholder="Enter book name here" />
+		<br><br><br>
+		<input type="submit" id="addbook" value="add book" name="addbook"/>
+	</form>
+</div>
+{% endblock body %}
 
-			}
-			.book-box input[type="submit"]
-			{
-				border: none;
-				outline: none;
-				height: 40px;
-				font-size: 18px;
-				border-radius: 20px;
-				background-color: rgb(62, 47, 63);
-			}
-			.book-box input[type="submit"]:hover
-			{
-				cursor: pointer;
-                box-shadow: 0 0 10px 0 rgb(62, 47, 63) inset, 0 0 10px 10px rgb(144, 133, 129);
-			}
-			::placeholder
-			{
-				color: rgb(21, 36, 68);
-			}
-		</style>	
-	</head>
-	<body>
-		
-		<div class="book-box">
-			<form action=" " method="POST">
-				{% csrf_token %}
-                {% for m in messages%}
-                    <h4>{{m}}</h4>
-                {%endfor%}
-				<h1>Issue Book</h1>
-                <p>Book id</p>
-				<input type="text" id="aname" name="aname" placeholder="Enter book id here"/>
-				<br><br>
-				<p>Book name</p>
-				<input type="text" name="bname" id="bname" placeholder="Enter book name here" />
-				<br><br><br>
-				<input type="submit" id="addbook" value="add book" name="addbook"/>
-			</form>
-		</div>
-	</body>
-</html>
+{% block style %}
+<style>
+	.book-box{
+		width: 320px;
+		height: 420px;
+		top: 50%;
+		left: 20%;
+		position: absolute;
+		transform: translate(-50%,-50%);
+		box-sizing: border-box;
+    }
+	h1{
+		margin: 0;
+		padding: 0 0 40px;
+		text-align: center;
+		font-size: 38px;
+	}
+	.book-box p{
+		margin: 0;
+		padding: 0;
+		font-weight: bold;
+		font-size: 22px;
+	}
+	.book-box input{
+		width: 100%;
+		margin-bottom: 20px;
+	}
+	.book-box input[type="text"]
+	{
+		border: none;
+		border-bottom: 1px solid rgb(0, 0, 0);
+		background: transparent;
+		outline: none;
+		height: 40px;
+		font-size: 18px ;
+
+	}
+	.book-box input[type="submit"]
+	{
+		border: none;
+		outline: none;
+		height: 40px;
+		font-size: 18px;
+		border-radius: 20px;
+		background-color: rgb(62, 47, 63);
+	}
+	.book-box input[type="submit"]:hover
+	{
+		cursor: pointer;
+        box-shadow: 0 0 10px 0 rgb(62, 47, 63) inset, 0 0 10px 10px rgb(144, 133, 129);
+	}
+	::placeholder
+	{
+		color: rgb(21, 36, 68);
+	}
+</style>	
+{% endblock style %}
