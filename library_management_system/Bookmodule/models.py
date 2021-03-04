@@ -1,5 +1,6 @@
 from django.db import models
 from loginmodule.models import Reader
+import datetime
 
 class Book(models.Model):
     book_id = models.AutoField(primary_key=True)
@@ -10,3 +11,4 @@ class Book(models.Model):
 class IssueBook(models.Model):
     issue_id = models.ForeignKey(Book, on_delete=models.CASCADE,null=True)
     reader_name= models.ForeignKey(Reader, on_delete=models.CASCADE,null=True)
+    date = models.DateField(("Date"), default=datetime.date.today)
