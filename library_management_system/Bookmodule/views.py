@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
-from .models import Book
+from .models import Book, IssueBook
+from loginmodule.models import Reader
 
 def addBook(request):
     if request.session.get('username') == None:
@@ -34,11 +35,20 @@ def issueBook(request):
         messages.info(request,'You are not authorize please login here')
         return render(request,'loginmodule/login.html')
     else:
+        username = request.session.get('username')
         if request.method == "POST":
             book_id = request.POST['book_id']
-            if issueBook.objects.filter(book_name = book_name).exists():
-                messages.info(request,'successfully book issued')
-                return render(request,'Bookmodule/issueBook.html')
+            if Book.objects.filter(book_id = book_id).exists():
+                book_object = Book.objects.filter(book_id = book_id).first()
+                if book_id == IssueBook.objects.filter(issue_id=book_object).exists():
+                    messages.info(request,'book already issued.')
+                    return render(request,'Bookmodule/issueBook.html')
+                else:
+                    reader_object = Reader.objects.filter(username=username).first()
+                    issued_book = IssueBook(issue_id=book_object,reader_name=reader_object)
+                    issued_book.save()
+                    messages.info(request,'successfully book issued')
+                    return render(request,'Bookmodule/issueBook.html')
             else:
                 messages.info(request,'book does not exists')
                 return render(request,'Bookmodule/issueBook.html')

@@ -7,6 +7,6 @@ class Book(models.Model):
     author_name = models.CharField(max_length=100)
     publish_year = models.IntegerField()
 
-class issueBook(models.Model):
-    book_id = models.ForeignKey(Book, on_delete=models.CASCADE,null=True)
+class IssueBook(models.Model):
+    issue_id = models.ForeignKey(Book, on_delete=models.CASCADE,null=True)
     reader_name= models.ForeignKey(Reader, on_delete=models.CASCADE,null=True)
