@@ -1,4 +1,4 @@
-{% include 'base.html' %}
+{% include 'loginmodule/base.html' %}
 <title>library management system</title>
 
 {% block body %}
@@ -9,6 +9,7 @@
 			 <li><a href="{% url 'removeBook' %}">Remove book</a></li>
 			 <li><a href="{% url 'returnBook' %}">Return book</a></li>
 			 <li><a href="#">show fine</a></li>
+			 <li><a href="{% url 'loginmodule:logout' %}">Logout</a></li>
 		 </ul>
  </header>
 {% endblock body %}
