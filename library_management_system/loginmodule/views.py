@@ -4,7 +4,10 @@ from django.contrib.auth.models import User,auth
 from .models import Reader
 
 def login(request):
-    return render(request,'loginmodule/login.html')
+    if request.session.get('username') == None:
+        return render(request,'loginmodule/login.html')
+    else:
+        return redirect('loginmodule:welcome')
 
 def failure(request):
     return render(request,'loginmodule/failure.html')
@@ -51,18 +54,26 @@ def home(request):
     return render(request,'loginmodule/home.html')
 
 def welcome(request):
-    if request.method == "POST":
-        username=request.POST['username']
-        password=request.POST['userpassword']
-        #check user is register or not
-        if Reader.objects.filter(username = username).exists() and Reader.objects.filter(password = password).exists():
-             return render(request,'loginmodule/welcome.html')
-        #user is  register then value of user is not None
+    if request.session.get('username') == None:
+        if request.method == "POST":
+            username=request.POST['username']
+            password=request.POST['userpassword']
+            #check user is register or not
+            if Reader.objects.filter(username = username).exists() and Reader.objects.filter(password = password).exists():
+                request.session['username'] = username
+                return render(request,'loginmodule/welcome.html')
+            #user is  register then value of user is not None
+            else:
+                #login access to user
+                messages.info(request,"Invalid username or password")
+                return redirect('/login')
         else:
-            #login access to user
-            messages.info(request,"Invalid username or password")
-            return redirect('/login')
+            return render(request,'loginmodule/login.html')
     else:
-        return render(request,'loginmodule/login.html')
+        return render(request,'loginmodule/welcome.html')
     
-    
+def logout(request):
+    if 'username' in request.session:
+        del request.session['username']
+    messages.info(request,'You are logged out!')
+    return render(request,'loginmodule/login.html')
