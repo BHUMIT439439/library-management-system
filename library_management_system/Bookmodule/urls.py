@@ -2,6 +2,7 @@ from django.urls import path
 from django.contrib import admin
 from . import views
 
+app_name = 'Bookmodule'
 urlpatterns = [
    path('addBook/',views.addBook,name='addBook'),
    path('issueBook/',views.issueBook,name='issueBook'),

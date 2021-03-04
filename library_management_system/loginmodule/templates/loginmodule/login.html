@@ -1,14 +1,25 @@
-{% include 'loginmodule/base.html' %}
+{% extends 'loginmodule/base.html' %}
 {% load static %}
 <title>Login page</title>
 		
 {% block body %}
+
+{% if messages %}
+<div class="alert alert-primary alert-dismissible fade show" role="alert">
+  <strong>
+  	{% for message in messages%}
+	    {{ message }}
+	{%endfor%}
+  </strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
 <div class="login-box">
 	<form action='/welcome/' method="POST"  id="loginbox">
 		{% csrf_token %}
-        {% for m in messages%}
-            <h4>{{m}}</h4>
-        {%endfor%}
+        
+        
 		<h1>login here</h1>
 		<p>User name</p>
 		<input type="text" name="username" id="username" placeholder="Enter name here" />
@@ -20,6 +31,10 @@
 	</form>
 </div>
 {% endblock body %}
+
+{% block navbarLinks %}
+	<a class="nav-link" href="{% url 'loginmodule:register' %}">Register</a>
+{% endblock navbarLinks %}
 
 {% block style %}
 <style>

@@ -75,5 +75,5 @@ def welcome(request):
 def logout(request):
     if 'username' in request.session:
         del request.session['username']
-    messages.info(request,'You are logged out!')
+    messages.success(request,'You are logged out!')
     return render(request,'loginmodule/login.html')
