@@ -2,87 +2,14 @@
 {% load static %}
 
 {% block body %}
-  <div class="header">
-    <h1>Library Management System</h1>
-    <p>"One Best Book is equal to Hundred Good Friends, One Good Friend is equal to a Library" </p> 
-	<div class="a">- Dr. A.P.J. Abdul Kalam</div>
-  </div>
-
-  <header>
-	<ul>
-		<li><a href="register">Register</a></li>
-		<li><a href="login">Login</a></li>
-	</ul>
-</header>
+	<div class="quote">
+		<h1>Library Management System</h1>
+		<p>"One Best Book is equal to Hundred Good Friends, One Good Friend is equal to a Library" </p> 
+		<div class="a">- Dr. A.P.J. Abdul Kalam</div>
+	</div>
 {% endblock body %}
 
-
-{% block style %}
-<style>
-	.header
-	{
-		padding: 10px;
-		text-align: center;
-		background:transparent;
-		color: rgb(6, 7, 7);
-		font-size: 28px;
-	}
-    ul
-	{
-		margin: 0;
-		padding-left: 270px;
-		list-style: none;
-		height: 36px;
-		background: transparent;  
-		font-family: Arial, Helvetica, sans-serif;
-		font-size: 18px;
-	}
-
-	li
-	{
-        padding-top: 0px;
-		float:left;
-		padding-right: 20px;
-		     
-	}
-
-    div.a
-    {
-        text-align: right;
-        padding-right: 262px;
-		font-style: italic;
-		font-size: 25px;
-		font-weight: 700;
-    }
-    a
-    {
-        color:rgb(0, 0, 0);
-    }
-	header {
-		padding-top: 200px;
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 80px;
-		display: flex;
-		align-items: center;
-		box-shadow: 0 0 25px 0 black;
-	}
-	header * {
-		display: inline;
-	}
-	header li {
-		margin: 20px;
-		font-size: 25px;
-	}
-	header li a {
-		color: black;
-		text-decoration: none;
-	}
-	header li:hover{
-		cursor: pointer;
-		box-shadow: 0 0 10px 0 rgb(62, 47, 63) inset, 0 0 10px 2px rgb(100, 100, 100);
-	}
-</style>
-{% endblock style %}
+{% block navbarLinks %}
+	<a class="nav-link" href="{% url 'loginmodule:register' %}">Register</a>
+	<a class="nav-link" href="{% url 'loginmodule:login' %}">Login</a>
+{% endblock navbarLinks %}

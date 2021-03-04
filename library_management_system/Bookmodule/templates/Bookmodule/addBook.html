@@ -2,13 +2,21 @@
 {% load static %}
 <title>add book page</title>
 
+{% if messages %}
+<div class="alert alert-primary alert-dismissible fade show" role="alert">
+  <strong>
+  	{% for message in messages%}
+	    {{ message }}
+	{%endfor%}
+  </strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
 {% block body %}
 <div class="book-box">
 	<form action=" " method="POST">
 		{% csrf_token %}
-        {% for m in messages%}
-            <h4>{{m}}</h4>
-        {%endfor%}
 		<h1>Add Book</h1>
 		<p style="color: red;">If you are superuser then you can able to add book otherwise not.</p>
 		<br><br>
@@ -28,6 +36,15 @@
 	</form>
 </div>
 {% endblock body %}
+
+{% block navbarLinks %}
+	<a class="nav-link" href="{% url 'Bookmodule:issueBook' %}">Issue book</a>
+	<a class="nav-link" href="{% url 'Bookmodule:addBook' %}">Add book</a>
+	<a class="nav-link" href="{% url 'Bookmodule:removeBook' %}">Remove book</a>
+	<a class="nav-link" href="{% url 'Bookmodule:returnBook' %}">Return book</a>
+	<a class="nav-link" href="#">Show fine</a>
+	<a class="nav-link" href="{% url 'loginmodule:logout' %}">Logout</a>
+{% endblock navbarLinks %}
 
 {% block style %}
 <style>

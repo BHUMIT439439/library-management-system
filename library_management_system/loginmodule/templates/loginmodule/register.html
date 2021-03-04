@@ -2,13 +2,22 @@
 {% load static %}
 
 {% block body %}
+
+{% if messages %}
+	  	{% for message in messages%}
+		<div class="alert alert-primary alert-dismissible fade show" role="alert">
+		  <strong>
+		    {{ message }}
+    	  </strong>
+		  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		{%endfor%}
+{% endif %}
+
 <div class="register-box">
 	<form action="" method="POST"  id="loginbox">
 	{% csrf_token %}
 	<h1>Registration here</h1>
-	{% for message in messages %}
-	<h4>{{message}}</h4>
-	{% endfor %}
 	<p>Username:</p> 
 	<input type="text" name="username" id="username" placeholder="Enter name here"/>
 	<br><br>
@@ -31,6 +40,10 @@
 	</form>
 </div>
 {% endblock body %}
+
+{% block navbarLinks %}
+	<a class="nav-link" href="{% url 'loginmodule:login' %}">Login</a>
+{% endblock navbarLinks %}
 
 {% block style %}
 <style>

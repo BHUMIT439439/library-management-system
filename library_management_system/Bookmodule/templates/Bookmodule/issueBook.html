@@ -1,14 +1,22 @@
-{% include 'loginmodule/base.html' %}
+{% extends 'loginmodule/base.html' %}
 {% load static %}
 <title>issue book page</title>
+
+{% if messages %}
+<div class="alert alert-primary alert-dismissible fade show" role="alert">
+  <strong>
+  	{% for message in messages%}
+	    {{ message }}
+	{%endfor%}
+  </strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
 		
 {% block body %}
 <div class="book-box">
 	<form action=" " method="POST">
 		{% csrf_token %}
-        {% for m in messages%}
-            <h4>{{m}}</h4>
-        {%endfor%}
 		<h1>Issue Book</h1>
         <p>Book id</p>
 		<input type="text" name="book_id" placeholder="Enter book id here"/>
@@ -17,6 +25,15 @@
 	</form>
 </div>
 {% endblock body %}
+
+{% block navbarLinks %}
+	<a class="nav-link" href="{% url 'Bookmodule:issueBook' %}">Issue book</a>
+	<a class="nav-link" href="{% url 'Bookmodule:addBook' %}">Add book</a>
+	<a class="nav-link" href="{% url 'Bookmodule:removeBook' %}">Remove book</a>
+	<a class="nav-link" href="{% url 'Bookmodule:returnBook' %}">Return book</a>
+	<a class="nav-link" href="#">Show fine</a>
+	<a class="nav-link" href="{% url 'loginmodule:logout' %}">Logout</a>
+{% endblock navbarLinks %}
 
 {% block style %}
 <style>
