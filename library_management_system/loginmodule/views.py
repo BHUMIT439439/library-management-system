@@ -26,10 +26,10 @@ def register(request):
             if password1 == password2:
                 #if both are same then forward procced
                 if Reader.objects.filter(username = username).exists():
-                    messages.info(request,'username already taken')
+                    messages.error(request,'username already taken')
                     return render(request,'loginmodule/register.html')
                 elif Reader.objects.filter(email = email).exists():
-                    messages.info(request,'email already taken')
+                    messages.error(request,'email already taken')
                     return render(request,'loginmodule/register.html')
                 else :
                     user = Reader(username = username , password = password1,
@@ -40,11 +40,11 @@ def register(request):
                     
             #if passwords are not match then again render register pagr                               
             else:
-                messages.info(request,"password does not match")
+                messages.error(request,"password does not match")
                 return redirect('loginmodule/register')
         else:
-            messages.info(request,"please enter the data")
-            messages.info(request,"all fields are must required")
+            messages.error(request,"please enter the data")
+            messages.error(request,"all fields are must required")
             return render(request,'loginmodule/register.html')
 
     else:
@@ -65,7 +65,7 @@ def welcome(request):
             #user is  register then value of user is not None
             else:
                 #login access to user
-                messages.info(request,"Invalid username or password")
+                messages.error(request,"Invalid username or password")
                 return redirect('/login')
         else:
             return render(request,'loginmodule/login.html')
