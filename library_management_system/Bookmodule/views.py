@@ -4,37 +4,33 @@ from django.contrib.messages import constants as message_constants
 from django.contrib.auth.models import User,auth
 from .models import Book, IssueBook
 from loginmodule.models import Reader
+from django.urls import reverse
 
 def addBook(request):
-    if request.session.get('username') == None:
-        messages.error(request,'You are not authorize please login here')
-        return render(request,'loginmodule/login.html')
+    if request.session.get('superuser') == None:
+        messages.error(request,'You are not authorize')
+        return redirect(reverse("loginmodule:login"))
     else:
         if request.method == "POST":
             book_name = request.POST['book_name']
             author_name = request.POST['author_name']
             publish_year = request.POST['publish_year']
-            super_pwd = request.POST['superpassword']
             if Book.objects.filter(book_name = book_name).exists() and Book.objects.filter(author_name = author_name).exists():
                 messages.error(request,'book already exist')
                 return render(request,'Bookmodule/addBook.html')
             else:
-                if super_pwd == 'xyz':
-                    b = Book(book_name = book_name , author_name = author_name , publish_year = publish_year)
-                    b.save()
-                    book_id = Book.objects.filter(book_name=book_name).first().book_id
-                    messages.success(request,f'successfully book added and id is {book_id}')
-                    return render(request,'Bookmodule/addBook.html')
-                else:
-                    messages.error(request,'superuser Password is invalid')
-                    return render(request,'Bookmodule/addBook.html')
+                b = Book(book_name = book_name , author_name = author_name , publish_year = publish_year)
+                b.save()
+                book_id = Book.objects.filter(book_name=book_name).first().book_id
+                messages.success(request,f'successfully book added and id is {book_id}')
+                return render(request,'Bookmodule/addBook.html')
         else:
              return render(request,'Bookmodule/addBook.html')
                 
 def issueBook(request):
     if request.session.get('username') == None:
-        messages.error(request,'You are not authorize please login here')
-        return render(request,'loginmodule/login.html')
+        messages.error(request,'You are not authorize')
+        return redirect(reverse("loginmodule:login"))
     else:
         username = request.session.get('username')
         if request.method == "POST":
@@ -66,21 +62,16 @@ def returnBook(request):
     return render(request,'Bookmodule/returnBook.html')
 
 def removeBook(request):
-    if request.session.get('username') == None:
-        messages.error(request,'You are not authorize please login here')
-        return render(request,'loginmodule/login.html')
+    if request.session.get('superuser') == None:
+        messages.error(request,'You are not authorize')
+        return redirect(reverse("loginmodule:login"))
     else:
         if request.method == "POST":
             book_id = request.POST['book_id']
-            super_pwd = request.POST['superpassword']
             if Book.objects.filter(book_id = book_id).exists():
-                if super_pwd == 'xyz':
                     messages.error(request,'book is removed')
                     b = Book.objects.filter(book_id=book_id).first()
                     b.delete()
-                    return render(request,'Bookmodule/removeBook.html')
-                else:
-                    messages.error(request,'invalid password')
                     return render(request,'Bookmodule/removeBook.html')
             else:
                 messages.error(request,'book not exists')
