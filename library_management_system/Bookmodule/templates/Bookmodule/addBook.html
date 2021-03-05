@@ -1,25 +1,26 @@
 {% extends 'loginmodule/base.html' %}
 {% load static %}
-<title>add book page</title>
+<title>Add Book</title>
 
 {% block body %}
-<div class="book-box">
-	<form action=" " method="POST">
-		{% csrf_token %}
-		<h1>Add Book</h1>
-		<br><br>
-		<p>Book name</p>
-		<input type="text" name="book_name" id="bname" placeholder="Enter book name here" />
-		<br><br>
-		<p>Auther name</p>
-		<input type="text" id="author_name" name="author_name" placeholder="Enter auther name here"/>
-		<br><br>
-        <p>Publish year</p>
-		<input type="text" id="publish_year" name="publish_year" placeholder="Enter publish year here"/>
-		<br><br><br>
-		<input type="submit" id="addbook" value="add book" name="addbook"/>
-	</form>
-</div>
+<form method="POST" class="add-book-form">
+	{% csrf_token %}
+	<b>
+		<div class="mb-3">
+			<label class="form-label">Add book</label>
+			<input type="text" class="form-control" name="book_name">
+		</div>
+		<div class="mb-3">
+			<label class="form-label">Author name</label>
+			<input type="text" class="form-control" name="author_name">
+		</div>
+		<div class="mb-3">
+			<label class="form-label">Publish_year</label>
+			<input type="text" class="form-control" name="publish_year">
+		</div>
+	</b>
+	<button type="submit" class="btn btn-primary">Add Book</button>
+</form>
 {% endblock body %}
 
 {% block navbarLinks %}
@@ -36,7 +37,7 @@
 
 {% block style %}
 <style>
-	.book-box{
+	.add-book-form{
 		width: 320px;
 		height: 420px;
 		top: 40%;
@@ -45,49 +46,10 @@
 		transform: translate(-50%,-50%);
 		box-sizing: border-box;
     }
-	h1{
-		margin: 0;
-		padding: 0 0 40px;
-		text-align: center;
-		font-size: 38px;
-	}
-	.book-box p{
-		margin: 0;
-		padding: 0;
-		font-weight: bold;
-		font-size: 22px;
-	}
-	.book-box input{
-		width: 100%;
-		margin-bottom: 20px;
-	}
-	.book-box input[type="text"]
-	{
-		border: none;
-		border-bottom: 1px solid rgb(0, 0, 0);
+	
+	.add-book-form input {
 		background: transparent;
-		outline: none;
-		height: 40px;
-		font-size: 18px ;
+	}
 
-	}
-	.book-box input[type="submit"]
-	{
-		border: none;
-		outline: none;
-		height: 40px;
-		font-size: 18px;
-		border-radius: 20px;
-		background-color: rgb(62, 47, 63);
-	}
-	.book-box input[type="submit"]:hover
-	{
-		cursor: pointer;
-        box-shadow: 0 0 10px 0 rgb(62, 47, 63) inset, 0 0 10px 4px rgb(144, 133, 129);
-	}
-	::placeholder
-	{
-		color: rgb(21, 36, 68);
-	}
 </style>
 {% endblock style %}
