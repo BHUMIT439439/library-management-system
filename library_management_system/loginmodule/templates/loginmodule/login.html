@@ -1,6 +1,9 @@
 {% extends 'loginmodule/base.html' %}
 {% load static %}
-<title>Login page</title>
+
+{% block title %}
+	<title>Login</title>
+{% endblock title %}
 		
 {% block body %}
 	<form action='/welcome/' method="POST" class="login-form">
