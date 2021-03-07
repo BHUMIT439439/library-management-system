@@ -7,7 +7,7 @@
 	{% csrf_token %}
 	<b>
 		<div class="mb-3">
-			<label class="form-label">Add book</label>
+			<label class="form-label">Book name</label>
 			<input type="text" class="form-control" name="book_name">
 		</div>
 		<div class="mb-3">
@@ -30,7 +30,7 @@
 	{% else %}
 		<a class="nav-link" href="{% url 'Bookmodule:issueBook' %}">Issue book</a>
 		<a class="nav-link" href="{% url 'Bookmodule:returnBook' %}">Return book</a>
-		<a class="nav-link" href="#">Show fine</a>
+		<a class="nav-link" href="{% url 'Bookmodule:showFine' %}">Show fine</a>
 	{% endif %}
 		<a class="nav-link" href="{% url 'loginmodule:logout' %}">Logout</a>
 {% endblock navbarLinks %}
@@ -40,7 +40,7 @@
 	.add-book-form{
 		width: 320px;
 		height: 420px;
-		top: 40%;
+		top: 50%;
 		left: 20%;
 		position: absolute;
 		transform: translate(-50%,-50%);

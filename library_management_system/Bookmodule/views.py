@@ -34,7 +34,7 @@ def returnBook(request):
         return redirect(reverse("loginmodule:login"))
     else:
         username = request.session.get('username')
-        issued_books = [ book.issue_id for book in IssueBook.objects.filter(reader_name=username) ]
+        issued_books = [ (book.issue_id,book.date) for book in IssueBook.objects.filter(reader_name=username) ]
         if request.method == "POST":
             book_id = request.POST['book_id']
             issued_book = IssueBook.objects.filter(issue_id=book_id)
@@ -113,3 +113,9 @@ def issueBook(request):
             else:
                 books = Book.objects.all()
                 return render(request,"Bookmodule/issueBook.html",{'books':books})
+
+def showFine(request):
+    if request.session.get('username') == None:
+        messages.error(request,'You are not authorize')
+        return redirect(reverse("loginmodule:login"))
+    return render(request,"Bookmodule/showFine.html")
