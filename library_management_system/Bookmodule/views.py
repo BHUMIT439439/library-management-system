@@ -1,6 +1,5 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from django.contrib.messages import constants as message_constants
 from django.contrib.auth.models import User,auth
 from .models import Book, IssueBook
 from loginmodule.models import Reader
@@ -90,7 +89,17 @@ def issueBook(request):
             # return render(request,'Bookmodule/issueBook.html')
             if 'search' in request.GET:
                 query = request.GET['search']
-                books = Book.objects.all().filter(Q(book_id__icontains = query) | Q(book_name__icontains = query) | Q(author_name__icontains = query))
+                search_category = request.GET['search_category']
+                if search_category == "All":
+                    books = Book.objects.all().filter(Q(book_id__icontains = query) | Q(book_name__icontains = query) | Q(author_name__icontains = query))
+                elif search_category == "book_id":
+                    books = Book.objects.all().filter(Q(book_id__icontains = query))
+                elif search_category == "book_name":
+                    books = Book.objects.all().filter(Q(book_name__icontains = query))
+                elif search_category == "author_name":
+                    books = Book.objects.all().filter(Q(book_author__icontains = query))
+                else:
+                    books = Book.objects.all().filter(Q(book_id__icontains = query) | Q(book_name__icontains = query) | Q(author_name__icontains = query))
                 context = {'books':books}
                 return render(request,"Bookmodule/issueBook.html", context)
             else:
