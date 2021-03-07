@@ -27,36 +27,6 @@ def addBook(request):
         else:
              return render(request,'Bookmodule/addBook.html')
                 
-def issueBook(request):
-    if request.session.get('username') == None:
-        messages.error(request,'You are not authorize')
-        return redirect(reverse("loginmodule:login"))
-    else:
-        username = request.session.get('username')
-        if request.method == "POST":
-            book_id = request.POST['book_id']
-            reader_count = IssueBook.objects.filter(reader_name = username).count()
-            if reader_count < 3:
-                if Book.objects.filter(book_id = book_id).exists():
-                    book_object = Book.objects.filter(book_id = book_id).first()
-                    book_id_count = IssueBook.objects.filter(issue_id = book_id).count()
-                    if book_id_count >= 1:
-                        messages.error(request,'book already issued.')
-                        return render(request,'Bookmodule/issueBook.html')
-                    else:
-                        reader_object = Reader.objects.filter(username=username).first()
-                        issued_book = IssueBook(issue_id=book_object,reader_name=reader_object)
-                        issued_book.save()
-                        messages.success(request,'successfully book issued')
-                        return render(request,'Bookmodule/issueBook.html')
-                else:
-                    messages.error(request,'book does not exists')
-                    return render(request,'Bookmodule/issueBook.html')
-            else:
-                messages.error(request,'yor have alredy taken 3 book')
-                return render(request,'Bookmodule/issueBook.html')
-        else:
-            return render(request,'Bookmodule/issueBook.html')
 
 def returnBook(request):
     return render(request,'Bookmodule/returnBook.html')
@@ -78,3 +48,51 @@ def removeBook(request):
                 return render(request,'Bookmodule/removeBook.html')
         else:
             return render(request,'Bookmodule/removeBook.html')
+
+def issueBook(request):
+    if request.session.get('username') == None:
+        messages.error(request,'You are not authorize')
+        return redirect(reverse("loginmodule:login"))
+    else:
+        username = request.session.get('username')
+        if request.method == "POST":
+            book_id = request.POST['book_id']
+            reader_count = IssueBook.objects.filter(reader_name = username).count()
+            if reader_count < 3:
+                if Book.objects.filter(book_id = book_id).exists():
+                    book_object = Book.objects.filter(book_id = book_id).first()
+                    book_id_count = IssueBook.objects.filter(issue_id = book_id).count()
+                    if book_id_count >= 1:
+                        messages.error(request,'book already issued.')
+                        result = Book.objects.all()
+                        context = {'result':result}
+                        return render(request,"Bookmodule/issueBook.html",context)
+                    else:
+                        reader_object = Reader.objects.filter(username=username).first()
+                        issued_book = IssueBook(issue_id=book_object,reader_name=reader_object)
+                        issued_book.save()
+                        messages.success(request,'successfully book issued')
+                        result = Book.objects.all()
+                        context = {'result':result}
+                        return render(request,"Bookmodule/issueBook.html",context)
+                else:
+                    messages.error(request,'book does not exists')
+                    result = Book.objects.all()
+                    context = {'result':result}
+                    return render(request,"Bookmodule/issueBook.html",context)
+            else:
+                messages.error(request,'yor have alredy taken 3 book')
+                result = Book.objects.all()
+                context = {'result':result}
+                return render(request,"Bookmodule/issueBook.html",context)
+        else:
+            # return render(request,'Bookmodule/issueBook.html')
+            if 'search' in request.GET:
+                query = request.GET['search']
+                result = Book.objects.all().filter(Q(book_id__icontains = query) | Q(book_name__icontains = query) | Q(author_name__icontains = query))
+                context = {'result':result}
+                return render(request,"Bookmodule/issueBook.html", context)
+            else:
+                result = Book.objects.all()
+                context = {'result':result}
+                return render(request,"Bookmodule/issueBook.html",context)
