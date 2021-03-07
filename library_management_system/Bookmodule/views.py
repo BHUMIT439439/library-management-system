@@ -34,12 +34,15 @@ def returnBook(request):
         return redirect(reverse("loginmodule:login"))
     else:
         username = request.session.get('username')
-        issued_books = [ (book.issue_id,book.date) for book in IssueBook.objects.filter(reader_name=username) ]
+        issued_books = [ (book.issue_id,book.date) for book in IssueBook.objects.filter(reader_name=username)]
         if request.method == "POST":
             book_id = request.POST['book_id']
             issued_book = IssueBook.objects.filter(issue_id=book_id)
             issued_book.delete()
-            issued_books = [ book.issue_id for book in IssueBook.objects.filter(reader_name=username) ]
+            book = Book.objects.filter(book_id=book_id).first()
+            book.is_book_available = True
+            book.save()
+            issued_books = [(book.issue_id,book.date) for book in IssueBook.objects.filter(reader_name=username)]
             return render(request,"Bookmodule/returnBook.html",{"books": issued_books})
         else:  
             return render(request,'Bookmodule/returnBook.html',{"books": issued_books})
@@ -75,24 +78,28 @@ def issueBook(request):
                 if Book.objects.filter(book_id = book_id).exists():
                     book_object = Book.objects.filter(book_id = book_id).first()
                     book_id_count = IssueBook.objects.filter(issue_id = book_id).count()
-                    if book_id_count >= 1:
+                    is_book_available = Book.objects.filter(book_id=book_id).first().is_book_available
+                    if not is_book_available:
                         messages.error(request,'book already issued.')
-                        books = Book.objects.all()
+                        books = Book.objects.filter(is_book_available=True)
                         return render(request,"Bookmodule/issueBook.html",{'books':books})
                     else:
                         reader_object = Reader.objects.filter(username=username).first()
                         issued_book = IssueBook(issue_id=book_object,reader_name=reader_object)
+                        book = Book.objects.filter(book_id=book_id).first()
+                        book.is_book_available = False
+                        book.save()
                         issued_book.save()
                         messages.success(request,'successfully book issued')
-                        books = Book.objects.all()
+                        books = Book.objects.filter(is_book_available=True)
                         return render(request,"Bookmodule/issueBook.html",{'books':books})
                 else:
                     messages.error(request,'book does not exists')
-                    books = Book.objects.all()
+                    books = Book.objects.filter(is_book_available=True)
                     return render(request,"Bookmodule/issueBook.html",{'books':books})
             else:
                 messages.error(request,'yor have alredy taken 3 book')
-                books = Book.objects.all()
+                books = Book.objects.filter(is_book_available=True)
                 return render(request,"Bookmodule/issueBook.html",{'books':books})
         else:
             # return render(request,'Bookmodule/issueBook.html')
@@ -100,18 +107,18 @@ def issueBook(request):
                 query = request.GET['search']
                 search_category = request.GET['search_category']
                 if search_category == "All":
-                    books = Book.objects.all().filter(Q(book_id__icontains = query) | Q(book_name__icontains = query) | Q(author_name__icontains = query))
+                    books = Book.objects.all().filter(Q(book_id__icontains = query) | Q(book_name__icontains = query) | Q(author_name__icontains = query) & Q(is_book_available = True))
                 elif search_category == "book_id":
-                    books = Book.objects.all().filter(Q(book_id__icontains = query))
+                    books = Book.objects.all().filter(Q(book_id__icontains = query) & Q(is_book_available = True))
                 elif search_category == "book_name":
-                    books = Book.objects.all().filter(Q(book_name__icontains = query))
+                    books = Book.objects.all().filter(Q(book_name__icontains = query) & Q(is_book_available = True))
                 elif search_category == "author_name":
-                    books = Book.objects.all().filter(Q(book_author__icontains = query))
+                    books = Book.objects.all().filter(Q(book_author__icontains = query) & Q(is_book_available = True))
                 else:
-                    books = Book.objects.all().filter(Q(book_id__icontains = query) | Q(book_name__icontains = query) | Q(author_name__icontains = query))
+                    books = Book.objects.all().filter(Q(book_id__icontains = query) | Q(book_name__icontains = query) | Q(author_name__icontains = query) & Q(is_book_available = True))
                 return render(request,"Bookmodule/issueBook.html",{'books':books})
             else:
-                books = Book.objects.all()
+                books = Book.objects.filter(is_book_available=True)
                 return render(request,"Bookmodule/issueBook.html",{'books':books})
 
 def showFine(request):
