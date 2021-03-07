@@ -5,6 +5,7 @@ from .models import Book, IssueBook
 from loginmodule.models import Reader
 from django.urls import reverse
 from django.db.models import Q
+import datetime
 
 def addBook(request):
     if request.session.get('superuser') == None:
@@ -34,7 +35,7 @@ def returnBook(request):
         return redirect(reverse("loginmodule:login"))
     else:
         username = request.session.get('username')
-        issued_books = [ (book.issue_id,book.date) for book in IssueBook.objects.filter(reader_name=username)]
+        issued_books = [ (book.issue_id,book.issue_date + datetime.timedelta(days=10)) for book in IssueBook.objects.filter(reader_name=username)]
         if request.method == "POST":
             book_id = request.POST['book_id']
             issued_book = IssueBook.objects.filter(issue_id=book_id)
@@ -42,7 +43,7 @@ def returnBook(request):
             book = Book.objects.filter(book_id=book_id).first()
             book.is_book_available = True
             book.save()
-            issued_books = [(book.issue_id,book.date) for book in IssueBook.objects.filter(reader_name=username)]
+            issued_books = [(book.issue_id,book.issue_date + datetime.timedelta(days=10)) for book in IssueBook.objects.filter(reader_name=username)]
             return render(request,"Bookmodule/returnBook.html",{"books": issued_books})
         else:  
             return render(request,'Bookmodule/returnBook.html',{"books": issued_books})
@@ -125,4 +126,11 @@ def showFine(request):
     if request.session.get('username') == None:
         messages.error(request,'You are not authorize')
         return redirect(reverse("loginmodule:login"))
-    return render(request,"Bookmodule/showFine.html")
+    else:
+        username = request.session.get("username")
+        issued_books = IssueBook.objects.filter(reader_name=username)
+        fine = 0
+        for issued_book_object in issued_books:
+            if (datetime.date.today().day) - ((issued_book_object.issue_date + datetime.timedelta(days=10)).day) > 0:
+                fine += 10
+        return render(request,"Bookmodule/showFine.html",{"fine": fine})
