@@ -1,47 +1,65 @@
-{% include 'loginmodule/base.html' %}
+{% extends 'loginmodule/base.html' %}
 {% load static %}
-<title>search book page</title>
+<title>Issue Book</title>
 
 {% block body %}
-<div class="search_box"> 
-  <form class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" >
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+<div class="search_box bg-dark"> 
+  <form class="form-inline">
+    <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="search" >
+    <button class="btn btn-success" type="submit">Search</button>
   </form>
-</div>  
+</div>
+
 <form action="{% url 'Bookmodule:issueBook' %}" method="POST">
 {% csrf_token %}
+<div class="book-table text-center">
 <table class="table">
   <tr>
     <th scope="col">Book Id</th>
     <th scope="col">Book name</th>
-    <th scope="col">Auther name</th>
+    <th scope="col">Author name</th>
     <th scope="col">Publish year</th>
+    <th scope="col">Add Item</th>
   </tr>
   <tr>
-    {% for a in result %}
-    <th>{{a.book_id}}</th>
-    <th>{{a.book_name}}</th>
-    <th>{{a.author_name}}</th>
-    <th>{{a.publish_year}}</th>
-	<!-- <th><a href="{% url 'Bookmodule:issueBook' %}">add</a> </th> -->
+    {% for book in books %}
+    <th>{{book.book_id}}</th>
+    <th>{{book.book_name}}</th>
+    <th>{{book.author_name}}</th>
+    <th>{{book.publish_year}}</th>
 	<th><button type="submit" class="btn btn-primary" value="{{ a.book_id }}" name="book_id">Add</button></th>
   </tr>
   {% endfor %}
 </table>
+</div>
 </form>
-  
 {% endblock body %}
+
+{% block navbarLinks %}
+  {% if request.session.superuser %}
+    <a class="nav-link" href="{% url 'Bookmodule:addBook' %}">Add book</a>
+    <a class="nav-link" href="{% url 'Bookmodule:removeBook' %}">Remove book</a>
+  {% else %}
+    <a class="nav-link" href="{% url 'Bookmodule:issueBook' %}">Issue book</a>
+    <a class="nav-link" href="{% url 'Bookmodule:returnBook' %}">Return book</a>
+    <a class="nav-link" href="#">Show fine</a>
+  {% endif %}
+    <a class="nav-link" href="{% url 'loginmodule:logout' %}">Logout</a>
+{% endblock navbarLinks %}
 
 {% block style %}
 <style>
-  .search_box{
+  .search_box {
     padding: 15px;
   }
-  th, td {
-    padding: 10px;
-    text-align: center;
-    font-size: 18px;
+
+  .search_box form{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .book-table {
+    margin-top: 7px;
   }
 </style>
 {% endblock style%}

@@ -5,6 +5,7 @@ from django.contrib.auth.models import User,auth
 from .models import Book, IssueBook
 from loginmodule.models import Reader
 from django.urls import reverse
+from django.db.models import Q
 
 def addBook(request):
     if request.session.get('superuser') == None:
@@ -64,35 +65,35 @@ def issueBook(request):
                     book_id_count = IssueBook.objects.filter(issue_id = book_id).count()
                     if book_id_count >= 1:
                         messages.error(request,'book already issued.')
-                        result = Book.objects.all()
-                        context = {'result':result}
+                        books = Book.objects.all()
+                        context = {'books':books}
                         return render(request,"Bookmodule/issueBook.html",context)
                     else:
                         reader_object = Reader.objects.filter(username=username).first()
                         issued_book = IssueBook(issue_id=book_object,reader_name=reader_object)
                         issued_book.save()
                         messages.success(request,'successfully book issued')
-                        result = Book.objects.all()
-                        context = {'result':result}
+                        books = Book.objects.all()
+                        context = {'books':books}
                         return render(request,"Bookmodule/issueBook.html",context)
                 else:
                     messages.error(request,'book does not exists')
-                    result = Book.objects.all()
-                    context = {'result':result}
+                    books = Book.objects.all()
+                    context = {'books':books}
                     return render(request,"Bookmodule/issueBook.html",context)
             else:
                 messages.error(request,'yor have alredy taken 3 book')
-                result = Book.objects.all()
-                context = {'result':result}
+                books = Book.objects.all()
+                context = {'books':books}
                 return render(request,"Bookmodule/issueBook.html",context)
         else:
             # return render(request,'Bookmodule/issueBook.html')
             if 'search' in request.GET:
                 query = request.GET['search']
-                result = Book.objects.all().filter(Q(book_id__icontains = query) | Q(book_name__icontains = query) | Q(author_name__icontains = query))
-                context = {'result':result}
+                books = Book.objects.all().filter(Q(book_id__icontains = query) | Q(book_name__icontains = query) | Q(author_name__icontains = query))
+                context = {'books':books}
                 return render(request,"Bookmodule/issueBook.html", context)
             else:
-                result = Book.objects.all()
-                context = {'result':result}
+                books = Book.objects.all()
+                context = {'books':books}
                 return render(request,"Bookmodule/issueBook.html",context)
