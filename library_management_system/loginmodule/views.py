@@ -52,7 +52,10 @@ def register(request):
          return render(request,'loginmodule/register.html')
 
 def home(request):
-    return render(request,'loginmodule/home.html')
+    if request.session.get('username') == None:
+        return render(request,'loginmodule/home.html')
+    else:
+        return redirect(reverse("loginmodule:welcome"))
 
 def welcome(request):
     if request.session.get('username') == None:
