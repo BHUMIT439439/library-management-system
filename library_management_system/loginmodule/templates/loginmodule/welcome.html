@@ -1,6 +1,10 @@
 {% extends 'loginmodule/base.html' %}
 <title>library management system</title>
 
+{% block title %}
+	<title>Welcome</title>
+{% endblock title %}
+
 {% block navbarLinks %}
 	{% if request.session.superuser %}
 		<a class="nav-link" href="{% url 'Bookmodule:addBook' %}">Add book</a>
