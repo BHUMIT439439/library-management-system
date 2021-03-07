@@ -4,8 +4,14 @@
 
 {% block body %}
 <div class="search_box bg-dark"> 
-  <form class="form-inline">
+  <form action="{% url 'Bookmodule:issueBook' %}" class="form-inline" method="GET">
     <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="search" >
+    <select class="form-select" style="width: 279px;" name="search_category">
+      <option selected>All</option>
+      <option value="book_id">Book id</option>
+      <option value="book_name">Book name</option>
+      <option value="author_name">Author name</option>
+    </select>
     <button class="btn btn-success" type="submit">Search</button>
   </form>
 </div>
@@ -13,7 +19,7 @@
 <form action="{% url 'Bookmodule:issueBook' %}" method="POST">
 {% csrf_token %}
 <div class="book-table text-center">
-<table class="table">
+<table class="table" style="vertical-align: middle;">
   <tr>
     <th scope="col">Book Id</th>
     <th scope="col">Book name</th>
