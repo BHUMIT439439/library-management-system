@@ -1,5 +1,8 @@
 {% extends 'loginmodule/base.html' %}
-<title>return book page</title>
+
+{% block title %}
+	<title>Return Book</title>
+{% endblock title %}
 
 {% block body %}
 <form action="{% url 'Bookmodule:returnBook' %}" method="POST">
