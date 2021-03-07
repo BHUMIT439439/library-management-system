@@ -2,16 +2,29 @@
 <title>return book page</title>
 
 {% block body %}
-<div class="book-box">
-	<form action=" " method="POST">
-		{% csrf_token %}
-		<h1>Return Book</h1>
-        <p>Book id</p>
-		<input type="text" id="aname" name="author_name" placeholder="Enter book id here"/>
-		<br><br><br>
-		<input type="submit" id="addbook" value="return book" name="addbook"/>
-	</form>
+<form action="{% url 'Bookmodule:returnBook' %}" method="POST">
+{% csrf_token %}
+<div class="book-table text-center">
+<table class="table" style="vertical-align: middle;">
+  <tr>
+    <th scope="col">Book Id</th>
+    <th scope="col">Book name</th>
+    <th scope="col">Author name</th>
+    <th scope="col">Publish year</th>
+    <th scope="col">Add Item</th>
+  </tr>
+  <tr>
+    {% for book in books %}
+    <th>{{book.book_id}}</th>
+    <th>{{book.book_name}}</th>
+    <th>{{book.author_name}}</th>
+    <th>{{book.publish_year}}</th>
+	<th><button type="submit" class="btn btn-primary" value="{{ book.book_id }}" name="book_id">Return</button></th>
+  </tr>
+  {% endfor %}
+</table>
 </div>
+</form>
 {% endblock body %}
 
 {% block navbarLinks %}
