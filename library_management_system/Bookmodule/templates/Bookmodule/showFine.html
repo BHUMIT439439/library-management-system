@@ -11,3 +11,7 @@
 	{% endif %}
 		<a class="nav-link" href="{% url 'loginmodule:logout' %}">Logout</a>
 {% endblock navbarLinks %}
+
+{% block body %}
+	<h1>Your fine is {{ fine }}</h1>
+{% endblock body %}
