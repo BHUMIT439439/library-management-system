@@ -1,86 +1,47 @@
-{% extends 'loginmodule/base.html' %}
+{% include 'loginmodule/base.html' %}
 {% load static %}
-<title>issue book page</title>
-		
-{% block body %}
-<div class="book-box">
-	<form action=" " method="POST">
-		{% csrf_token %}
-		<h1>Issue Book</h1>
-        <p>Book id</p>
-		<input type="text" name="book_id" placeholder="Enter book id here"/>
-		<br><br><br>
-		<input type="submit" id="addbook" name="addbook"/>
-	</form>
-</div>
-{% endblock body %}
+<title>search book page</title>
 
-{% block navbarLinks %}
-	{% if request.session.superuser %}
-		<a class="nav-link" href="{% url 'Bookmodule:addBook' %}">Add book</a>
-		<a class="nav-link" href="{% url 'Bookmodule:removeBook' %}">Remove book</a>
-	{% else %}
-		<a class="nav-link" href="{% url 'Bookmodule:issueBook' %}">Issue book</a>
-		<a class="nav-link" href="{% url 'Bookmodule:returnBook' %}">Return book</a>
-		<a class="nav-link" href="#">Show fine</a>
-	{% endif %}
-		<a class="nav-link" href="{% url 'loginmodule:logout' %}">Logout</a>
-{% endblock navbarLinks %}
+{% block body %}
+<div class="search_box"> 
+  <form class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" >
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</div>  
+<form action="{% url 'Bookmodule:issueBook' %}" method="POST">
+{% csrf_token %}
+<table class="table">
+  <tr>
+    <th scope="col">Book Id</th>
+    <th scope="col">Book name</th>
+    <th scope="col">Auther name</th>
+    <th scope="col">Publish year</th>
+  </tr>
+  <tr>
+    {% for a in result %}
+    <th>{{a.book_id}}</th>
+    <th>{{a.book_name}}</th>
+    <th>{{a.author_name}}</th>
+    <th>{{a.publish_year}}</th>
+	<!-- <th><a href="{% url 'Bookmodule:issueBook' %}">add</a> </th> -->
+	<th><button type="submit" class="btn btn-primary" value="{{ a.book_id }}" name="book_id">Add</button></th>
+  </tr>
+  {% endfor %}
+</table>
+</form>
+  
+{% endblock body %}
 
 {% block style %}
 <style>
-	.book-box{
-		width: 320px;
-		height: 420px;
-		top: 50%;
-		left: 20%;
-		position: absolute;
-		transform: translate(-50%,-50%);
-		box-sizing: border-box;
-    }
-	h1{
-		margin: 0;
-		padding: 0 0 40px;
-		text-align: center;
-		font-size: 38px;
-	}
-	.book-box p{
-		margin: 0;
-		padding: 0;
-		font-weight: bold;
-		font-size: 22px;
-	}
-	.book-box input{
-		width: 100%;
-		margin-bottom: 20px;
-	}
-	.book-box input[type="text"]
-	{
-		border: none;
-		border-bottom: 1px solid rgb(0, 0, 0);
-		background: transparent;
-		outline: none;
-		height: 40px;
-		font-size: 18px ;
-
-	}
-	.book-box input[type="submit"]
-	{
-		border: none;
-		outline: none;
-		height: 40px;
-		font-size: 18px;
-		border-radius: 20px;
-		background-color: rgb(62, 47, 63);
-	}
-	.book-box input[type="submit"]:hover
-	{
-		cursor: pointer;
-        box-shadow: 0 0 10px 0 rgb(62, 47, 63) inset, 0 0 10px 10px rgb(144, 133, 129);
-	}
-	::placeholder
-	{
-		color: rgb(21, 36, 68);
-	}
-</style>	
-{% endblock style %}
+  .search_box{
+    padding: 15px;
+  }
+  th, td {
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+  }
+</style>
+{% endblock style%}
