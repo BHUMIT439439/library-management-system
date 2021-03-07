@@ -14,16 +14,18 @@
     <th scope="col">Publish year</th>
     <th scope="col">Add Item</th>
   </tr>
-  <tr>
-    {% for book,issue_date in books %}
-    <th>{{book.book_id}}</th>
-    <th>{{issue_date}}</th>
-    <th>{{book.book_name}}</th>
-    <th>{{book.author_name}}</th>
-    <th>{{book.publish_year}}</th>
+  
+	{% for book,issue_date in books %}
+	<tr>
+	<th>{{book.book_id}}</th>
+	<th>{{issue_date}}</th>
+	<th>{{book.book_name}}</th>
+	<th>{{book.author_name}}</th>
+	<th>{{book.publish_year}}</th>
 	<th><button type="submit" class="btn btn-primary" value="{{ book.book_id }}" name="book_id">Return</button></th>
-  </tr>
-  {% endfor %}
+	</tr>
+	{% endfor %}
+  	
 </table>
 </div>
 </form>

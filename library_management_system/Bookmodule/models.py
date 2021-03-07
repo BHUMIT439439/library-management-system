@@ -7,6 +7,7 @@ class Book(models.Model):
     book_name = models.CharField(max_length=100)
     author_name = models.CharField(max_length=100)
     publish_year = models.IntegerField()
+    is_book_available = models.BooleanField(default=True)
 
 class IssueBook(models.Model):
     issue_id = models.ForeignKey(Book, on_delete=models.CASCADE,null=True)
