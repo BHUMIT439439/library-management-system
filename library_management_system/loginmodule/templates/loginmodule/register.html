@@ -4,95 +4,67 @@
 {% block title %}
 	<title>Register</title>
 {% endblock title %}
-
+		
 {% block body %}
-<div class="register-box">
-	<form action="" method="POST"  id="loginbox">
-	{% csrf_token %}
-	<h1>Registration here</h1>
-	<p>Username:</p> 
-	<input type="text" name="username" id="username" placeholder="Enter name here"/>
-	<br>
-	<p>First name: </p>
-	<input type="text" name="fname" id="fname" placeholder="Enter first name here"/>
-	<br>
-	<p>Last name: </p>
-	<input type="text" name="lname" id="lname" placeholder="Enter last name here"/>
-	<br>
-	<p>E-mail: </p>
-	<input type="email" name="email" id="e-mail" placeholder="Enter emailID here"/>
-	<br>
-	<p>Password: </p>
-	<input type="password" name="password" id="password" placeholder="Enter password here"/>
-	<br>
-	<p>Re-enter password: </p>
-	<input type="password" name="repassword" id="repassword" placeholder="Re-enter password here"/>
-	<br><br>
-	<input type="submit" name="submit" id="submit" value="Register"/>
+	<form action="" method="POST" class="Register-form">
+		<h1>Registration here</h1>
+		{% csrf_token %}
+		
+		<div class="mb-3">
+		<b>
+				<label class="form-label">Username</label>
+				<input type="text" class="form-control" name="username" required>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Firstname</label>
+				<input type="password" class="form-control" name="fname" required>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Last name</label>
+				<input type="password" class="form-control" name="lname" required>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">E-mail Id</label>
+				<input type="password" class="form-control" name="email" required>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Password</label>
+				<input type="password" class="form-control" name="password" required>
+			</div>
+			<div class="mb-3">
+				<label class="form-label">Confirm Password</label>
+				<input type="password" class="form-control" name="repassword" required>
+			</div>
+			
+		</b>
+		<button type="submit" class="btn btn-primary">Register</button>
 	</form>
-</div>
 {% endblock body %}
 
 {% block navbarLinks %}
-	<a class="nav-link" href="{% url 'loginmodule:login' %}">Login</a>
+	<a class="nav-link" href="{% url 'loginmodule:register' %}">Register</a>
 {% endblock navbarLinks %}
 
 {% block style %}
 <style>
-			.register-box{
-				width: 320px;
-				height: 420px;
-				top: 35%;
-				left: 20%;
-				position: absolute;
-				transform: translate(-50%,-50%);
-				box-sizing: border-box;
+	.Register-form input {
+		background: transparent;
+	}
 
-			}
-			h1{
-				margin: 0;
-				padding: 0 0 30px;
-				text-align: center;
-				font-size: 38px;
-			}
-			.register-box p{
-				margin: 0;
-				padding: 0;
-				font-weight: bold;
-				font-size: 22px;
-			}
-			.register-box input{
-				width: 100%;
-				margin-bottom: 18px;
-			}
-			.register-box input[type="text"],input[type="password"],input[type="email"]
-			{
-				border: none;
-				border-bottom: 1px solid rgb(0, 0, 0);
-				background: transparent;
-				outline: none;
-				height: 30px;
-				font-size: 15px ;
-
-			}
-			.register-box input[type="submit"]
-			{
-				border: none;
-				outline: none;
-				height: 40px;
-				font-size: 18px;
-				border-radius: 20px;
-				background-color: rgb(62, 47, 63);
-				
-			}
-			.register-box input[type="submit"]:hover
-			{
-				cursor: pointer;
-				box-shadow: 0 0 10px 0 rgb(62, 47, 63) inset, 0 0 10px 4px rgb(144, 133, 129);
-			}
-			::placeholder
-			{
-				color: rgb(21, 36, 68);
-			}
-		</style>
+	.Register-form{
+		width: 320px;
+		height: 420px;
+		top: 50%;
+		left: 20%;
+		position: absolute;
+		transform: translate(-50%,-50%);
+		box-sizing: border-box;
+    }
+	h1{
+		margin: 0;
+		padding: 0 0 30px;
+		text-align: center;
+		font-size: 38px;
+	}
+</style>	
 {% endblock style %}

@@ -1,0 +1,14 @@
+your profile
+
+
+
+{% for book in books %}
+<table>
+<tr>
+    <th>{{u.username}}</th>
+    <th>{{u.first_name}}</th>
+    <th>{{book.last_name}}</th>
+    <th>{{book.email}}</th>
+  </tr>
+</table>
+  {% endfor %}

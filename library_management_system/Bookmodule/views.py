@@ -99,7 +99,7 @@ def issueBook(request):
                     books = Book.objects.filter(is_book_available=True)
                     return render(request,"Bookmodule/issueBook.html",{'books':books})
             else:
-                messages.error(request,'yor have alredy taken 3 book')
+                messages.error(request,'you have alredy taken 3 book')
                 books = Book.objects.filter(is_book_available=True)
                 return render(request,"Bookmodule/issueBook.html",{'books':books})
         else:
@@ -134,3 +134,11 @@ def showFine(request):
             if (datetime.date.today().day) - ((issued_book_object.issue_date + datetime.timedelta(days=10)).day) > 0:
                 fine += 10
         return render(request,"Bookmodule/showFine.html",{"fine": fine})
+
+def profile(request):
+    username = request.session.get('username')
+    u = Reader.objects.raw(username = username)
+    print("--------------------------------")
+    print(u.username)
+    print("--------------------------------")
+    return render(request,"Bookmodule/profile.html",{"u": u})
