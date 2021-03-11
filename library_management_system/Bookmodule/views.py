@@ -136,9 +136,25 @@ def showFine(request):
         return render(request,"Bookmodule/showFine.html",{"fine": fine})
 
 def profile(request):
-    username = request.session.get('username')
-    u = Reader.objects.raw(username = username)
-    print("--------------------------------")
-    print(u.username)
-    print("--------------------------------")
-    return render(request,"Bookmodule/profile.html",{"u": u})
+    username = request.session.get("username")
+
+    #create all session
+    u = Reader.objects.filter(username=username).first()
+    request.session['member_username'] = u.username
+    request.session['member_password'] = u.password
+    request.session['member_email'] = u.email
+    request.session['member_fname'] = u.first_name
+    request.session['member_lname'] = u.last_name
+    
+    if request.method=="POST":
+        first_name=request.POST['firstname']
+        last_name=request.POST['lastname']
+        email=request.POST['email']
+        user = Reader.objects.filter(username=username).first()
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.save()
+        return render(request,"Bookmodule/profile.html")
+    else:
+        return render(request,"Bookmodule/profile.html")
