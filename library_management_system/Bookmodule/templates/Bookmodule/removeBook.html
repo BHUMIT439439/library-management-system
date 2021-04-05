@@ -2,14 +2,13 @@
 {% load static %}
 
 {% block title %}
-	Remove Book
+
 {% endblock title %}
 
 {% block body %}
 <div class="book-box">
 	<form action=" " method="POST">
 		{% csrf_token %}
-		<h1>Add Book</h1>
 		<br><br>
 		<p>Book id</p>
 		<input type="text" name="book_id" id="book_id" placeholder="Enter book id here" />
