@@ -4,8 +4,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User,auth
 from .models import Reader
 
-superuser_username = "visrut"
-superuser_password = "okok" 
+superuser_username = "admin"
+superuser_password = "admin" 
 
 def login(request):
     if request.session.get('username') == None:
