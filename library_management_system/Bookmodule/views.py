@@ -89,17 +89,18 @@ def issueBook(request):
                         issued_book.save()
                         messages.success(request,'Successfully book issued')
                         books = Book.objects.filter(is_book_available=True)
-                        return render(request,"Bookmodule/issueBook.html",{'books':books})
+                        return render(request,"Bookmodule/issueBook.html",{'books':books,'issued_books': reader_count})
                 else:
                     messages.error(request,'Book does not exists')
                     books = Book.objects.filter(is_book_available=True)
-                    return render(request,"Bookmodule/issueBook.html",{'books':books})
+                    return render(request,"Bookmodule/issueBook.html",{'books':books,'issued_books': reader_count})
             else:
                 messages.error(request,'you have alredy taken 3 book')
                 books = Book.objects.filter(is_book_available=True)
-                return render(request,"Bookmodule/issueBook.html",{'books':books})
+                return render(request,"Bookmodule/issueBook.html",{'books':books,'issued_books': reader_count})
         else:
             # return render(request,'Bookmodule/issueBook.html')
+            reader_count = IssueBook.objects.filter(reader_name = username).count()
             if 'search' in request.GET:
                 query = request.GET['search']
                 search_category = request.GET['search_category']
@@ -113,10 +114,10 @@ def issueBook(request):
                     books = Book.objects.all().filter(Q(author_name__icontains = query) & Q(is_book_available = True))
                 else:
                     books = Book.objects.all().filter(Q(book_id__icontains = query) | Q(book_name__icontains = query) | Q(author_name__icontains = query) & Q(is_book_available = True))
-                return render(request,"Bookmodule/issueBook.html",{'books':books})
+                return render(request,"Bookmodule/issueBook.html",{'books':books,'issued_books': reader_count})
             else:
                 books = Book.objects.filter(is_book_available=True)
-                return render(request,"Bookmodule/issueBook.html",{'books':books})
+                return render(request,"Bookmodule/issueBook.html",{'books':books,'issued_books': reader_count})
 
 def showFine(request):
     if request.session.get('username') == None:
