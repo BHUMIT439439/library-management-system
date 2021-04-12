@@ -19,8 +19,7 @@
   </form>
 </div>
 
-<form action="{% url 'Bookmodule:issueBook' %}" method="POST">
-{% csrf_token %}
+<!-- <form action="{% url 'Bookmodule:issueBook' %}" method="POST"> -->
 <div class="book-table text-center">
 <table class="table" style="vertical-align: middle;">
   <tr>
@@ -36,12 +35,44 @@
     <th>{{book.book_name}}</th>
     <th>{{book.author_name}}</th>
     <th>{{book.publish_year}}</th>
-	<th><button type="submit" class="btn btn-primary" value="{{ book.book_id }}" name="book_id">Add</button></th>
+	<th><button type="submit" class="btn btn-primary" id="issue{{ book.book_id }}" value="{{ book.book_id }}" name="book_id">Add</button></th>
   </tr>
   {% endfor %}
 </table>
 </div>
-</form>
+<!-- </form> -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+    var count = {{ issued_books }} ;
+
+    $('.btn').click(function(){
+
+    if(count < 3) {
+    var book_id;
+    book_id = $(this).attr("value");
+    $.ajax(
+    {
+        type:"POST",
+        url: "{% url 'Bookmodule:issueBook' %}",
+        data:{
+            book_id: book_id,
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        success: function( data ) 
+        {
+            $( '#issue'+ book_id ).parent().parent().remove();
+            $( '#message' ).text(data);
+        }
+     })
+     count++;
+    } else {
+      alert("You already issued 3 books now no more!");
+    }
+  });
+</script>
+
 {% endblock body %}
 
 {% block navbarLinks %}
