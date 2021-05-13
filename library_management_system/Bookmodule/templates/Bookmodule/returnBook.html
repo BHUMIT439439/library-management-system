@@ -5,8 +5,7 @@
 {% endblock title %}
 
 {% block body %}
-<form action="{% url 'Bookmodule:returnBook' %}" method="POST">
-{% csrf_token %}
+
 <div class="book-table text-center">
 <table class="table" style="vertical-align: middle;">
   <tr>
@@ -19,19 +18,46 @@
   </tr>
   
 	{% for book,issue_date in books %}
+	<!-- <form action="{% url 'Bookmodule:returnBook' %}" method="POST"> -->
+	<!-- {% csrf_token %} -->
 	<tr>
 	<th>{{book.book_id}}</th>
 	<th>{{issue_date}}</th>
 	<th>{{book.book_name}}</th>
 	<th>{{book.author_name}}</th>
 	<th>{{book.publish_year}}</th>
-	<th><button type="submit" class="btn btn-primary" value="{{ book.book_id }}" name="book_id">Return</button></th>
+	<th><button type="submit" class="btn btn-primary" id="return{{ book.book_id }}" value="{{ book.book_id }}" name="book_id">Return</button></th>
 	</tr>
+	<!-- </form> -->
 	{% endfor %}
   	
 </table>
 </div>
-</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $('.btn').click(function(){
+    var book_id;
+    book_id = $(this).attr("value");
+    $.ajax(
+    {
+        type:"POST",
+        url: "{% url 'Bookmodule:returnBook' %}",
+        data:{
+            book_id: book_id,
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        success: function( data ) 
+        {
+        	console.log(data);
+            $( '#return'+ book_id ).parent().parent().remove();
+            $( '#message' ).text(data);
+        }
+     })
+	});
+</script>
+
 {% endblock body %}
 
 {% block navbarLinks %}
