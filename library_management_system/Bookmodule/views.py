@@ -136,11 +136,7 @@ def profile(request):
 
     #create all session
     u = Reader.objects.filter(username=username).first()
-    request.session['member_username'] = u.username
-    request.session['member_password'] = u.password
-    request.session['member_email'] = u.email
-    request.session['member_fname'] = u.first_name
-    request.session['member_lname'] = u.last_name
+    
     
     if request.method=="POST":
         first_name=request.POST['firstname']
